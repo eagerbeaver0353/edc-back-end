@@ -18,6 +18,7 @@ const EventMeetingSchema = new mongoose.Schema(
     createdByName: { type: String, required: true },
     createdByEmail: { type: String, required: true },
     description: String,
+    posterImage: String,
   },
 
   { timestamps: true },

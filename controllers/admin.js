@@ -203,7 +203,9 @@ module.exports.scheduleEventOrMeeting = async (req, res, next) => {
       link: false,
       dateAndTime: true,
       description: false,
+      poster: false,
     })
+    console.log(req.body)
     const { title, members, type, link, dateAndTime, filters, description } =
       req.body
 
@@ -225,6 +227,7 @@ module.exports.scheduleEventOrMeeting = async (req, res, next) => {
       description,
       createdByEmail: req.user?.email,
       createdByName: req.user?.firstName,
+      posterImage: `/uploads/${req.file.filename}`,
     })
     if (type !== ACTIVITY.MEETING && filters && filters.length) {
       const result = await StartupSupport.find({ $or: filters })

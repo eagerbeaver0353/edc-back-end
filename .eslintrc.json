@@ -25,7 +25,7 @@
         "bracketSpacing": true,
         "max_line_length": 120,
         "printWidth": 80,
-        "endOfLine": "lf"
+        "endOfLine": "auto"
       }
     ],
     "import/no-extraneous-dependencies": [

@@ -1,13 +1,20 @@
 // Importing required modules
+const path = require('path')
 const express = require('express')
 const usersRouter = require('./routes/users')
 const adminRouter = require('./routes/admin')
 const ErrorClass = require('./services/error')
+const commonRouter = require('./routes/common')
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
+app.use(
+  process.env.PUBLIC_PATH,
+  express.static(path.join(__dirname, process.env.PUBLIC_PATH)),
+)
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -25,6 +32,7 @@ app.use((req, res, next) => {
 
 app.use('/users', usersRouter)
 app.use('/admin', adminRouter)
+app.use('/common', commonRouter)
 
 // Define a route handler
 app.get('/', (req, res) => {
@@ -39,7 +47,8 @@ app.all('*', (req, res, next) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   const errorCode = err.code || 500
-  res.status(errorCode).send({
+  console.log(err)
+  res.status(500).send({
     message: err.message || 'Internal Server Error. Something went wrong!',
     status: errorCode,
   })

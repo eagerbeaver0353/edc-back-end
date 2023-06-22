@@ -3,6 +3,8 @@ const express = require('express'),
   adminController = require('../controllers/admin'),
   { auth } = require('../middleware/auth')
 
+const { uploadLarge } = require('../services/multer')
+
 adminRouter.get(
   '/all-startup-details',
   auth,
@@ -20,6 +22,7 @@ adminRouter.get('/get-all-admin', auth, adminController.getAllAdmin)
 adminRouter.post(
   '/schedule-event-meeting',
   auth,
+  uploadLarge.single('poster'),
   adminController.scheduleEventOrMeeting,
 )
 adminRouter.get(
