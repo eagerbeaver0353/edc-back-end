@@ -111,6 +111,7 @@ module.exports.createAdmin = async (req, res, next) => {
       lastName: true,
       branch: true,
       phoneNumber: true,
+      role: true,
     })
     const { email, password } = req.body
     if (isInvalidRequest) {
@@ -131,7 +132,7 @@ module.exports.createAdmin = async (req, res, next) => {
       ...req.body,
       otpVerified: true,
       isForgotPassword: false,
-      role: ROLE.ADMIN,
+      // role: ROLE.ADMIN,
     }
     const salt = await bcrypt.genSaltSync(10)
     userData.password = bcrypt.hashSync(password, salt)
